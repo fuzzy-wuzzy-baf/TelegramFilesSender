@@ -1,5 +1,5 @@
 
-![image](https://img.shields.io/badge/Python-14354C?style=for-the-badge&logo=python&logoColor=white) ![https://t.me/illusionere](https://img.shields.io/badge/Telegram-2CA5E0?style=for-the-badge&logo=telegram&logoColor=white)
+![image](https://img.shields.io/badge/Python-14354C?style=for-the-badge&logo=python&logoColor=white) ![image](https://img.shields.io/badge/Telegram-2CA5E0?style=for-the-badge&logo=telegram&logoColor=white)
 
 # TelegramFilesSender
 ![image](https://github.com/fuzzy-wuzzy-baf/TelegramFilesSender/assets/58778694/f9db9a34-6cd3-4f58-9541-4e181759aeda)
