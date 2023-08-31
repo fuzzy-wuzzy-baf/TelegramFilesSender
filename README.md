@@ -9,8 +9,7 @@ This program allows you to send files to Telegram messenger without logging in. 
 Add the chat ID and bot token to the config.json file.
 
 # Used libraries
-import customtkinter
-from tkinter import filedialog
-from tkinter.messagebox import showwarning, showinfo
-import requests
-import json
+- customtkinter
+- tkinter
+- requests
+- json
