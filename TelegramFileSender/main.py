@@ -7,7 +7,7 @@ import json
 with open("config.json", "r") as configuration:
     config = json.load(configuration)
 
-VERSION = '1.0'
+VERSION = '1.1'
 
 app = customtkinter.CTk()
 app.title(f"Telegram Sender v. {VERSION}")
@@ -39,6 +39,7 @@ files = []
 
 def select_files():
     global files
+    counter = 0
     files = list(filedialog.askopenfilenames())
     textbox.delete("1.0", "end")
     if not files and combobox.get() == "ru":
@@ -47,23 +48,27 @@ def select_files():
         showwarning(title="Warning!", message="You chose nothing.")
     else:
         for i in files:
-            textbox.insert("insert", i + "\n")
+            counter += 1
+            textbox.insert("insert", f"{counter}) {i} \n")
     
 def send_file():
-    print(files)
+    counter = 0
     for file in files:
         file = {'document': open(file, 'rb')}
         req = requests.post(f'https://api.telegram.org/bot{config["TOKEN"]}/sendDocument?chat_id={config["chat_id"]}', files=file)
-        if req.status_code == 200 and combobox.get() == "ru":
-            showinfo(title="Успех!", message="Успешно отправлено.")
-        elif req.status_code == 200 and combobox.get() == "en":
-            showinfo(title="Success!", message="Successfully sent.")
-        else:
-            if combobox.get() == "ru":
-                showwarning(title="Ошибка!", message=f"Ваши файлы не были отправлены. {req.text}")
-            else:
-                showwarning(title="Error!", message=f"Your files were not sent. {req.text}")
-
+        if req.status_code != 200 and combobox.get() == "ru":
+            showwarning(title="Ошибка!", message=f"Ваши файлы не были отправлены. {req.text}")
+            break
+        elif req.status_code != 200 and combobox.get() == "en":
+            showwarning(title="Error!", message=f"Your files were not sent. {req.text}")
+            break
+        counter += 1
+        
+    if counter == len(files) and combobox.get() == "ru":
+        showinfo(title="Успех!", message="Успешно отправлено.")
+    elif counter == len(files) and combobox.get() == "en":
+        showinfo(title="Success!", message="Successfully sent.")
+    
 def clear_list_files():
     textbox.delete("1.0", "end")
     files.clear()
